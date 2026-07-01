@@ -111,3 +111,48 @@ ggplot(remarrigewill_c) +
   labs(x = "remarrige_will_c", y = "gender_c", title = "再婚意思の男女比較") +
   theme_gray(base_family = if (interactive()) "HiraKakuPro-W3" else "sans") +
   theme(plot.title = element_text(hjust = 0.5))
+
+# ggmosaic なしの代替コード
+mosaic_data <- remarrigewill_c %>%
+  count(gender_c, remarrige_will_c) %>%
+  group_by(remarrige_will_c) %>%
+  mutate(prop_within = n / sum(n)) %>%
+  ungroup() %>%
+  mutate(
+    col_total = ave(n, remarrige_will_c, FUN = sum),
+    col_prop  = col_total / sum(n)
+  )
+
+# 各列の幅と位置を計算
+col_info <- mosaic_data %>%
+  distinct(remarrige_will_c, col_prop) %>%
+  mutate(
+    xmax = cumsum(col_prop),
+    xmin = lag(xmax, default = 0),
+    xmid = (xmin + xmax) / 2
+  )
+
+mosaic_data <- mosaic_data %>%
+  left_join(col_info, by = c("remarrige_will_c", "col_prop")) %>%
+  group_by(remarrige_will_c) %>%
+  mutate(
+    ymax = cumsum(prop_within),
+    ymin = lag(ymax, default = 0)
+  ) %>%
+  ungroup()
+
+ggplot(mosaic_data) +
+  geom_rect(aes(xmin = xmin, xmax = xmax,
+                ymin = ymin, ymax = ymax,
+                fill = gender_c),
+            colour = "white") +
+  geom_text(data = col_info,
+            aes(x = xmid, y = -0.03, label = remarrige_will_c),
+            size = 3) +
+  labs(title = "再婚意思の男女比較", fill = "性別") +
+  theme_minimal(base_family = "HiraKakuPro-W3") +
+  theme(
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    plot.title    = element_text(hjust = 0.5)
+  )
