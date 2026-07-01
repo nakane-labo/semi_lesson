@@ -6,7 +6,11 @@ library(GGally)
 library(dbplyr)
 library(ggthemes)
 library(gtsummary)
+
+# ggmosaicはRのバージョンでエラーが出やすいので、最新のRStudio、Rのにアップデートしてから
+devtools::install_github("haleyjeppson/ggmosaic")
 library(ggmosaic)
+
 
 #フォルダの固定
 here::here()
