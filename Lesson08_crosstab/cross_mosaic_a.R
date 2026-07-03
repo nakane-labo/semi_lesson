@@ -1,16 +1,12 @@
 # クロス集計とモザイクプロット
 
-# パッケージの準備（devtools / ggmosaic は事前に install.packages で入れておく）
+# パッケージの準備
 library(tidyverse)
 library(ggplot2)
 library(GGally)
 library(dbplyr)
 library(ggthemes)
 library(gtsummary)
-
-# ggmosaicはRのバージョンでエラーが出やすいので、最新のRStudio、Rのにアップデートしてから
-devtools::install_github("haleyjeppson/ggmosaic")
-library(ggmosaic)
 
 # 作業ディレクトリの確認
 getwd()
@@ -34,6 +30,7 @@ rm(list = ls())
 remarrigewill_a <- read_csv("Lesson08_crosstab/remarrigewill_a.csv")
 
 print(remarrigewill_a)
+view(remarrigewill_a)
 
 #変数を箱に入れるよ
 gender <- (remarrigewill_a$gender)
@@ -102,17 +99,7 @@ table_data_with_p <- table_by_gender %>%
 
 table_data_with_p
 
-#モザイクプロットを書く
-ggplot(remarrigewill_c) +
-  geom_mosaic(
-    aes(x = product(gender_c, remarrige_will_c), fill = gender_c),
-    na.rm = TRUE
-  ) +
-  labs(x = "remarrige_will_c", y = "gender_c", title = "再婚意思の男女比較") +
-  theme_gray(base_family = if (interactive()) "HiraKakuPro-W3" else "sans") +
-  theme(plot.title = element_text(hjust = 0.5))
-
-# ggmosaic なしの代替コード
+# モザイクプロット（ggplot2 の geom_rect で描画）
 mosaic_data <- remarrigewill_c %>%
   count(gender_c, remarrige_will_c) %>%
   group_by(remarrige_will_c) %>%
@@ -142,17 +129,23 @@ mosaic_data <- mosaic_data %>%
   ungroup()
 
 ggplot(mosaic_data) +
-  geom_rect(aes(xmin = xmin, xmax = xmax,
-                ymin = ymin, ymax = ymax,
-                fill = gender_c),
-            colour = "white") +
-  geom_text(data = col_info,
-            aes(x = xmid, y = -0.03, label = remarrige_will_c),
-            size = 3) +
+  geom_rect(
+    aes(
+      xmin = xmin, xmax = xmax,
+      ymin = ymin, ymax = ymax,
+      fill = gender_c
+    ),
+    colour = "white"
+  ) +
+  geom_text(
+    data = col_info,
+    aes(x = xmid, y = -0.03, label = remarrige_will_c),
+    size = 3
+  ) +
   labs(title = "再婚意思の男女比較", fill = "性別") +
-  theme_minimal(base_family = "HiraKakuPro-W3") +
+  theme_minimal(base_family = if (interactive()) "HiraKakuPro-W3" else "sans") +
   theme(
     axis.text.x  = element_blank(),
     axis.ticks.x = element_blank(),
-    plot.title    = element_text(hjust = 0.5)
+    plot.title   = element_text(hjust = 0.5)
   )
