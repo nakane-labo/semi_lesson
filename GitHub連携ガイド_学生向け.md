@@ -107,9 +107,10 @@ semi_lesson/
 ├── Lesson02_xxx/
 ├── ...
 ├── Lesson15_xxx/
-├── applied/         ← 応用編
-├── sample_dataset/  ← サンプルデータ
-└── README.md
+├── Lesson16_propensity_score/  ← 傾向スコア・IPW
+├── R_assignment_tidyverse100-main/
+├── folder_format/
+└── GitHub連携ガイド_学生向け.md
 ```
 
 各 Lesson フォルダの中にある `.R` ファイルを RStudio や Cursor で開いて実行してください。
