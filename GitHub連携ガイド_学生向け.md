@@ -13,7 +13,7 @@
 
 教材は以下の URL で公開されています。
 
-**<https://github.com/nakanenaruhisa/semi_lesson>**
+**<https://github.com/nakane-labo/semi_lesson>**
 
 ブラウザでアクセスすると、Lesson ごとのフォルダや R スクリプト、サンプルデータなどが確認できます。
 
@@ -49,7 +49,7 @@
 
 **向いている人**：まず触ってみたい、Git を入れていない、更新はあまり取らなくてよい。
 
-1. ブラウザで **https://github.com/nakanenaruhisa/semi_lesson** を開く。
+1. ブラウザで **https://github.com/nakane-labo/semi_lesson** を開く。
 2. 緑色の **「Code」ボタン** をクリック → **「Download ZIP」** を選択。
 3. ダウンロードされた ZIP ファイルを解凍する（ダブルクリックや右クリック →「展開」など）。
 4. 解凍してできたフォルダを、**セクション 2 で指定した保存場所**に移動する。フォルダ名が `semi_lesson-main` になっている場合は `semi_lesson` にリネームしてください。
@@ -77,7 +77,7 @@
 
 ```bash
 cd "/Users/[あなたのユーザー名]/Library/CloudStorage/OneDrive-学校法人立命館/lecture/semi/R"
-git clone https://github.com/nakanenaruhisa/semi_lesson.git
+git clone https://github.com/nakane-labo/semi_lesson.git
 ```
 
 実行すると `R` フォルダの中に `semi_lesson` フォルダが作られ、教材一式が入ります。これでセクション 2 で指定した保存場所に配置されます。
@@ -136,7 +136,7 @@ semi_lesson/
 自分が編集したファイルと先生が更新したファイルが同じだった場合に競合（コンフリクト）が起きることがあります。一番かんたんな解決方法は、**別のフォルダに新しくクローンし直す** ことです。
 
 ```bash
-git clone https://github.com/nakanenaruhisa/semi_lesson.git semi_lesson_new
+git clone https://github.com/nakane-labo/semi_lesson.git semi_lesson_new
 ```
 
 これで `semi_lesson_new` というフォルダに最新版が入ります。自分の編集は元のフォルダに残っているので、必要な部分だけコピーしてください。
@@ -165,9 +165,9 @@ whoami
 
 | やりたいこと | コマンド |
 |---|---|
-| 教材をダウンロード | `git clone https://github.com/nakanenaruhisa/semi_lesson.git` |
+| 教材をダウンロード | `git clone https://github.com/nakane-labo/semi_lesson.git` |
 | 最新版に更新 | `git pull` |
-| 別フォルダに最新版を取得 | `git clone https://github.com/nakanenaruhisa/semi_lesson.git semi_lesson_new` |
+| 別フォルダに最新版を取得 | `git clone https://github.com/nakane-labo/semi_lesson.git semi_lesson_new` |
 
 ---
 
